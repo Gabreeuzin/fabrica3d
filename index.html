@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fábrica 3D</title>
+<meta name="description" content="Aprenda a criar o roteiro e a animação 3D dos seus vídeos curtos usando só o Claude. Guias, skills e roteiros prontos por R$ 27,90.">
+<meta name="theme-color" content="#16213F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+/* Layout: faixas empilhadas de largura total, conteúdo em coluna central de 1000px,
+   cartões com contorno grosso e sombra dura. Paleta: azul-marinho, azul-claro, amarelo e laranja. */
+:root{
+  color-scheme: light;
+  --tinta:#16213F;
+  --tinta-2:#1E2C55;
+  --ceu:#E8F1FF;
+  --ceu-forte:#C9DCFF;
+  --nuvem:#FAFCFF;
+  --amarelo:#FFD23F;
+  --amarelo-claro:#FFF1BF;
+  --laranja:#FF7A1A;
+  --laranja-escuro:#DB5A05;
+  --texto-suave:#46557A;
+  --fonte-titulo:"Archivo Black","Archivo",system-ui,sans-serif;
+  --fonte-texto:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --borda:3px solid var(--tinta);
+  --raio:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--nuvem);color:var(--tinta);font-family:var(--fonte-texto);font-size:17px;line-height:1.5;padding-bottom:110px;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+h1,h2,h3{font-family:var(--fonte-titulo);font-weight:400;line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(30px,5.2vw,44px)}
+h2{font-size:clamp(26px,4.2vw,38px)}
+h3{font-size:clamp(19px,2.6vw,24px)}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:3px}
+
+.miolo{width:min(100% - 32px,1000px);margin-inline:auto}
+.estreito{width:min(100% - 32px,720px);margin-inline:auto}
+.centro{text-align:center}
+.faixa{padding:72px 0}
+.g-desce-ceu{background:linear-gradient(var(--nuvem) 0%,var(--ceu) 45%,var(--ceu-forte) 100%)}
+.g-sobe-ceu{background:linear-gradient(var(--ceu-forte) 0%,var(--ceu) 55%,var(--nuvem) 100%)}
+.g-desce-sol{background:linear-gradient(var(--nuvem) 0%,#FFF8DF 50%,var(--amarelo-claro) 100%)}
+.g-sobe-sol{background:linear-gradient(var(--amarelo-claro) 0%,#FFF8DF 40%,var(--nuvem) 100%)}
+.g-ceu-sol{background:linear-gradient(var(--ceu) 0%,var(--ceu-forte) 42%,var(--amarelo-claro) 100%)}
+.g-noite{background:linear-gradient(var(--tinta) 0%,var(--tinta-2) 100%);color:#fff}
+.faixa--curta{padding:44px 0}
+.suave{color:var(--texto-suave)}
+.destaque{color:var(--laranja-escuro)}
+.g-noite .destaque{color:var(--amarelo)}
+.marca-texto{background:var(--laranja);border:var(--borda);border-radius:12px;padding:0 .22em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* topo */
+.topo{background:var(--tinta);color:#fff;padding:18px 0}
+.logo{display:inline-flex;align-items:center;gap:10px;font-family:var(--fonte-titulo);font-size:20px;text-decoration:none}
+.logo svg{width:30px;height:33px}
+
+/* peças */
+.cubo{display:block;overflow:visible}
+.etiqueta{display:inline-block;background:var(--amarelo);border:var(--borda);border-radius:999px;padding:6px 16px;font-weight:700;font-size:15px;box-shadow:0 4px 0 var(--tinta)}
+.cartao{background:#fff;border:var(--borda);border-radius:var(--raio);box-shadow:0 5px 0 var(--tinta)}
+.botao{display:inline-flex;align-items:center;justify-content:center;background:var(--laranja);color:var(--tinta);border:var(--borda);border-radius:999px;padding:16px 30px;font-family:var(--fonte-titulo);font-size:18px;text-decoration:none;box-shadow:0 7px 0 var(--tinta);transition:transform .12s,box-shadow .12s;white-space:nowrap}
+.botao:hover{transform:translateY(2px);box-shadow:0 5px 0 var(--tinta)}
+.botao:active{transform:translateY(7px);box-shadow:0 0 0 var(--tinta)}
+.botao--grande{font-size:20px;padding:19px 38px}
+
+/* cenas desenhadas (trocar por vídeo ou imagem) */
+.cena{position:relative;overflow:hidden;background:linear-gradient(var(--c1,#BFD6FF),var(--c2,#E8F1FF) 62%,var(--c3,#FFD23F) 62%)}
+.cena .cubo{position:absolute}
+.cena .a{width:46%;left:27%;bottom:20%}
+.cena .b{width:26%;left:8%;bottom:12%}
+.cena .c{width:22%;right:9%;bottom:15%}
+.cena .sol{position:absolute;width:22%;aspect-ratio:1;border-radius:50%;background:var(--sol,#FFD23F);border:var(--borda);top:10%;right:12%}
+.cena--noite{--c1:#16213F;--c2:#2C3F78;--c3:#FF7A1A;--sol:#FAFCFF}
+.cena--areia{--c1:#FFE9A6;--c2:#FFF6DA;--c3:#FF7A1A;--sol:#FF7A1A}
+.cena--mar{--c1:#9DBEFF;--c2:#C9DCFF;--c3:#1E2C55;--sol:#FFD23F}
+.cena--laranja{--c1:#FF9A4D;--c2:#FFD23F;--c3:#16213F;--sol:#FAFCFF}
+.selo-video{position:absolute;left:10px;top:10px;background:#fff;border:2px solid var(--tinta);border-radius:999px;font-size:12px;font-weight:700;padding:2px 10px;display:flex;align-items:center;gap:6px}
+.selo-video::before{content:"";border-left:8px solid var(--laranja-escuro);border-top:5px solid transparent;border-bottom:5px solid transparent}
+
+/* herói */
+.heroi{padding-top:54px}
+.heroi .pergunta{color:var(--texto-suave);font-weight:500;margin-bottom:14px}
+.heroi h1{max-width:22ch;margin-inline:auto}
+.so-largo{display:none}
+@media (min-width:600px){.so-largo{display:inline}.heroi .marca-texto{white-space:nowrap}}
+.promessa{display:inline-flex;align-items:center;gap:10px;background:#fff;border:var(--borda);border-radius:999px;padding:10px 20px;font-weight:600;box-shadow:0 5px 0 var(--tinta);margin-top:28px}
+.check{flex:none;width:24px;height:24px;border-radius:50%;background:var(--amarelo);border:2.5px solid var(--tinta);display:grid;place-items:center}
+.check::after{content:"";width:9px;height:5px;border-left:2.5px solid var(--tinta);border-bottom:2.5px solid var(--tinta);transform:rotate(-45deg) translate(1px,-1px)}
+.palco{position:relative;display:grid;justify-items:center;margin-top:44px}
+.celular{width:min(72vw,270px);aspect-ratio:9/16;border:6px solid var(--tinta);border-radius:34px;box-shadow:0 9px 0 var(--tinta);overflow:hidden;background:var(--tinta)}
+.celular video{display:block;width:100%;height:100%;object-fit:cover;border-radius:26px}
+.avisos{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px;width:min(100%,350px)}
+.avisos li{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;background:#fff;border:var(--borda);border-radius:16px;padding:10px 14px;box-shadow:0 4px 0 var(--tinta);text-align:left}
+.avisos .num{width:38px;height:38px;border-radius:10px;background:var(--amarelo);border:2.5px solid var(--tinta);display:grid;place-items:center;font-family:var(--fonte-titulo)}
+.avisos li:nth-child(even) .num{background:var(--laranja)}
+.avisos b{display:block;font-size:15px;line-height:1.2}
+.avisos span{font-size:13px;color:var(--texto-suave);line-height:1.25}
+.avisos small{font-size:12px;color:var(--texto-suave)}
+@media (min-width:760px){
+  .avisos{position:absolute;right:calc(50% - 400px);bottom:28px;margin:0}
+  .palco{padding-right:120px}
+}
+
+/* galeria */
+.abas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:28px 0 26px}
+.aba{font:700 16px var(--fonte-texto);color:var(--tinta);background:#fff;border:var(--borda);border-radius:16px;padding:10px 20px;box-shadow:0 5px 0 var(--tinta);cursor:pointer}
+.aba[aria-selected="true"]{background:var(--amarelo);box-shadow:0 2px 0 var(--tinta);transform:translateY(3px)}
+.trilho{display:flex;gap:18px;overflow-x:auto;padding:6px 16px 22px;scroll-snap-type:x mandatory;justify-content:safe center}
+.trilho[hidden]{display:none}
+.quadro{flex:none;width:210px;scroll-snap-align:center;margin:0}
+.quadro video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:var(--tinta);border:var(--borda);border-radius:22px;box-shadow:0 6px 0 var(--tinta)}
+.quadro figcaption{font-weight:700;font-size:15px;margin-top:14px;text-align:center}
+
+/* dor */
+.sublinha{text-decoration:underline wavy var(--laranja);text-decoration-thickness:3px;text-underline-offset:7px}
+.quadro-dor{background:var(--ceu-forte);padding:32px 24px 0;display:grid;gap:14px;align-items:end;margin-top:34px;overflow:hidden}
+.pensamentos{list-style:none;margin:0;padding:0 0 32px;display:grid;gap:12px;justify-items:start;align-self:center}
+.pensamentos li{position:relative;background:var(--tinta);color:#fff;border-radius:16px;padding:11px 18px;font-weight:700;line-height:1.3}
+.pensamentos li::after{content:"";position:absolute;right:-9px;top:50%;translate:0 -50%;border-left:10px solid var(--tinta);border-top:8px solid transparent;border-bottom:8px solid transparent}
+.pensamentos li:nth-child(even){margin-left:22px}
+.quadro-dor img{display:block;justify-self:center;width:min(86%,300px);height:auto}
+@media (min-width:700px){.quadro-dor{grid-template-columns:1.15fr 1fr;padding:38px 36px 0}}
+
+/* faixa escura */
+.g-noite h2{font-size:clamp(22px,3.2vw,29px);line-height:1.25}
+.g-noite p{color:#C9D4F2;font-size:19px;margin-top:20px}
+.g-noite .maior{font-family:var(--fonte-titulo);color:#fff;font-size:clamp(24px,3.6vw,34px);margin-top:28px;line-height:1.15}
+
+/* benefícios */
+.beneficios{display:grid;gap:20px;margin-top:36px}
+.beneficio{padding:26px 24px;display:grid;gap:14px;justify-items:center;text-align:center}
+.beneficio h3{font-family:var(--fonte-texto);font-weight:700;font-size:19px;line-height:1.25;letter-spacing:0}
+.icone{width:52px;height:52px;border-radius:14px;border:var(--borda);background:var(--amarelo);display:grid;place-items:center}
+.beneficio:nth-child(even) .icone{background:var(--laranja)}
+.icone svg{width:28px;height:28px;fill:none;stroke:var(--tinta);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.seta{width:58px;height:58px;border-radius:50%;background:var(--laranja);border:var(--borda);box-shadow:0 5px 0 var(--tinta);display:grid;place-items:center;margin:44px auto 0;text-decoration:none}
+.seta::after{content:"";width:12px;height:12px;border-right:3px solid var(--tinta);border-bottom:3px solid var(--tinta);transform:rotate(45deg) translate(-2px,-2px)}
+@media (min-width:640px){.beneficios{grid-template-columns:1fr 1fr}}
+
+/* itens */
+.balao{display:inline-block;background:#fff;border:var(--borda);border-radius:18px 18px 18px 4px;padding:8px 18px;font-weight:700;box-shadow:0 4px 0 var(--tinta);margin-bottom:18px}
+.itens{display:grid;gap:26px;margin-top:40px}
+.item{display:grid;overflow:hidden}
+.item-imagem{min-height:230px;display:grid;place-items:center;padding:28px;background:var(--ceu-forte);border-bottom:var(--borda)}
+.item-imagem--sol{background:var(--amarelo)}
+.item-imagem--laranja{background:var(--laranja)}
+.item-imagem svg{width:min(60%,210px)}
+.item-texto{padding:30px 28px;display:grid;gap:12px;align-content:center}
+.item-texto .n{font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--laranja-escuro)}
+.item-texto p{color:var(--texto-suave)}
+@media (min-width:760px){
+  .item{grid-template-columns:1fr 1fr}
+  .item-imagem{border-bottom:0;border-right:var(--borda)}
+  .item--invertido .item-imagem{order:2;border-right:0;border-left:var(--borda)}
+}
+
+/* etapas */
+.etapas{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:20px;counter-reset:e}
+.etapas li{padding:24px;display:grid;gap:10px;align-content:start}
+.etapas li::before{counter-increment:e;content:counter(e);width:44px;height:44px;border-radius:50%;background:var(--amarelo);border:var(--borda);display:grid;place-items:center;font-family:var(--fonte-titulo);font-size:20px}
+.etapas li:nth-child(even)::before{background:var(--laranja)}
+.etapas p{color:var(--texto-suave);font-size:16px}
+@media (min-width:640px){.etapas{grid-template-columns:1fr 1fr}}
+@media (min-width:960px){.etapas--4{grid-template-columns:repeat(4,1fr)}.etapas--3{grid-template-columns:repeat(3,1fr)}}
+
+/* listas de check */
+.lista-check{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lista-check li{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;font-weight:600}
+.para-quem{display:grid;gap:36px;align-items:center}
+.para-quem h2{font-size:clamp(24px,3.4vw,31px);margin-bottom:26px}
+.pilha{justify-self:center;width:min(100%,320px)}
+@media (min-width:760px){.para-quem{grid-template-columns:1.4fr 1fr}}
+
+/* recapitulação */
+.recap{padding:34px 28px;margin-top:8px}
+.recap h2{font-size:clamp(22px,3vw,29px);text-align:center;margin-bottom:22px}
+.recap ul{list-style:none;margin:0;padding:0}
+.recap li{display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:2px solid var(--ceu)}
+.recap li:last-child{border-bottom:0}
+.recap .tag{font-size:12px;font-weight:700;background:var(--amarelo-claro);border:2px solid var(--tinta);border-radius:999px;padding:2px 10px}
+.total{display:inline-block;margin:28px auto 0;font-weight:700}
+.fecho{font-family:var(--fonte-titulo);font-size:clamp(22px,3.4vw,32px);line-height:1.15;margin-top:26px;text-wrap:balance}
+
+/* oferta */
+.oferta{display:grid;gap:28px;align-items:center}
+.oferta-visual{aspect-ratio:4/3;border-radius:var(--raio);border:var(--borda);box-shadow:0 6px 0 var(--tinta)}
+.oferta-caixa{padding:32px 28px;display:grid;gap:8px;justify-items:start}
+.oferta-caixa .rotulo{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--laranja-escuro)}
+.preco{font-family:var(--fonte-titulo);font-size:clamp(46px,8vw,64px);line-height:1;font-variant-numeric:tabular-nums}
+.preco small{font-size:.42em;margin-right:6px}
+.oferta-caixa .botao{margin:16px 0 14px;width:100%}
+.selos{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:15px;font-weight:600}
+.selos li{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:center}
+@media (min-width:760px){.oferta{grid-template-columns:1.1fr 1fr}}
+
+/* requisitos */
+.requisitos{background:var(--amarelo-claro)}
+.requisitos h2{font-size:clamp(22px,3vw,29px);margin-bottom:24px}
+
+/* escolhas */
+.escolhas{display:grid;gap:22px}
+.escolha{padding:26px 24px;display:grid;gap:14px;align-content:start}
+.escolha--boa{background:var(--amarelo-claro)}
+.escolha-topo{display:flex;gap:16px;align-items:center}
+.escolha-topo .rosto{flex:none;width:66px;height:66px;border-radius:50%;border:var(--borda);background:var(--ceu-forte);display:grid;place-items:center}
+.escolha--boa .rosto{background:var(--laranja)}
+.rosto svg{width:60%}
+.escolha .op{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-suave)}
+.escolha p{color:var(--texto-suave);font-size:16px}
+@media (min-width:760px){.escolhas{grid-template-columns:1fr 1fr}}
+
+/* números */
+.autoridade{display:grid;gap:36px;align-items:center}
+.autoridade p{margin-top:16px;font-size:18px}
+.numeros{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.numeros div{background:#fff;border:var(--borda);border-radius:16px;box-shadow:0 4px 0 var(--tinta);padding:16px 14px;text-align:center}
+.numeros dt{font-family:var(--fonte-titulo);font-size:30px;line-height:1.1}
+.numeros dd{margin:4px 0 0;font-size:14px;font-weight:600;color:var(--texto-suave);line-height:1.25}
+@media (min-width:760px){.autoridade{grid-template-columns:1.15fr 1fr}}
+
+/* dúvidas */
+.duvidas{display:grid;gap:14px;margin-top:34px;text-align:left}
+.duvidas details{background:#fff;border:var(--borda);border-radius:16px;box-shadow:0 4px 0 var(--tinta)}
+.duvidas summary{cursor:pointer;list-style:none;padding:16px 52px 16px 20px;font-weight:700;position:relative}
+.duvidas summary::-webkit-details-marker{display:none}
+.duvidas summary::after{content:"+";position:absolute;right:16px;top:50%;translate:0 -50%;width:28px;height:28px;border-radius:50%;background:var(--amarelo);border:2.5px solid var(--tinta);display:grid;place-items:center;font-family:var(--fonte-titulo);font-size:16px;line-height:1}
+.duvidas details[open] summary::after{content:"–";background:var(--laranja)}
+.duvidas details p{padding:0 20px 18px;color:var(--texto-suave)}
+
+/* janela de conversa (ilustração) e bonecos */
+.janela{background:#fff;border:var(--borda);border-radius:16px;box-shadow:0 5px 0 var(--tinta);overflow:hidden;width:100%;max-width:430px;text-align:left}
+.janela-topo{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--tinta);color:#fff;font-size:12px;font-weight:600}
+.janela-topo i{width:9px;height:9px;border-radius:50%;background:var(--amarelo)}
+.janela-topo i:nth-child(2){background:var(--laranja)}
+.janela-topo i:nth-child(3){background:var(--ceu-forte)}
+.janela-topo span{margin-left:6px;opacity:.85}
+.conversa{padding:14px;display:grid;gap:10px;font-size:14px;line-height:1.35;background:var(--nuvem)}
+.fala{margin:0;max-width:88%;padding:9px 12px;border-radius:14px;border:2px solid var(--tinta)}
+.fala--voce{justify-self:end;background:var(--tinta);color:#fff;border-bottom-right-radius:4px}
+.fala--claude{justify-self:start;background:#fff;border-bottom-left-radius:4px}
+.fala .quem{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--laranja-escuro);margin-bottom:3px}
+.anexo{display:flex;gap:10px;align-items:center;margin-top:8px;padding:8px 10px;border:2px solid var(--tinta);border-radius:10px;background:var(--amarelo-claro);font-weight:700;font-size:13px;overflow-wrap:anywhere}
+.anexo img{flex:none;width:42px;aspect-ratio:9/16;object-fit:cover;border-radius:6px;border:2px solid var(--tinta)}
+.folha{flex:none;width:30px;height:38px;border-radius:5px;border:2px solid var(--tinta);background:#fff}
+.linhas{flex:1;display:grid;gap:5px}
+.linhas i{height:6px;border-radius:3px;background:var(--ceu-forte)}
+.linhas i:last-child{width:60%}
+.celular--pequeno{width:150px;border-width:5px;border-radius:26px;box-shadow:0 6px 0 var(--tinta)}
+.celular--pequeno video{border-radius:20px}
+.turma{display:flex;align-items:flex-end;justify-content:center;justify-self:center;width:min(100%,400px)}
+.turma img{display:block;height:auto;width:34%}
+.turma img:nth-child(2){width:44%;margin:0 -6%;position:relative;z-index:1}
+.escolha-topo img{flex:none;width:92px;height:auto}
+.oferta-pacote{position:relative;padding:0 64px 18px 0}
+.oferta-pacote>img{position:absolute;right:0;bottom:0;width:150px;height:auto}
+@media (max-width:520px){.oferta-pacote{padding-right:44px}.oferta-pacote>img{width:104px}}
+
+/* rodapé e barra */
+.rodape{background:var(--tinta);color:#C9D4F2;padding:48px 0;font-size:14px;text-align:center}
+.rodape .logo{color:#fff;margin-bottom:18px}
+.rodape p{max-width:62ch;margin:8px auto 0}
+.barra-compra{position:fixed;left:50%;bottom:16px;translate:-50% 0;width:min(100% - 24px,520px);background:#fff;border:var(--borda);border-radius:999px;box-shadow:0 6px 0 var(--tinta);padding:8px 8px 8px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:20}
+.barra-compra .valor{font-family:var(--fonte-titulo);font-size:21px;line-height:1.1}
+.barra-compra .valor small{display:block;font:600 12px var(--fonte-texto);color:var(--texto-suave)}
+.barra-compra .botao{font-size:16px;padding:12px 20px;box-shadow:0 4px 0 var(--tinta)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.botao{transition:none}}
+</style>
+</head>
+<body>
+
+<!-- Cubo reutilizado em todo o site. Cores por --t (topo), --l (esquerda) e --r (direita). -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cubo" viewBox="0 0 100 110">
+    <g stroke="#16213F" stroke-width="5" stroke-linejoin="round">
+      <polygon points="50,5 95,30 50,55 5,30" style="fill:var(--t,#FFD23F)"/>
+      <polygon points="5,30 50,55 50,105 5,80" style="fill:var(--l,#FF7A1A)"/>
+      <polygon points="95,30 50,55 50,105 95,80" style="fill:var(--r,#DB5A05)"/>
+    </g>
+  </symbol>
+  <symbol id="rosto" viewBox="0 0 100 100">
+    <rect x="12" y="14" width="76" height="72" rx="16" fill="#FAFCFF" stroke="#16213F" stroke-width="6"/>
+    <circle cx="37" cy="45" r="6" fill="#16213F"/><circle cx="63" cy="45" r="6" fill="#16213F"/>
+    <path d="M36 64 Q50 76 64 64" fill="none" stroke="#16213F" stroke-width="6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="rosto-triste" viewBox="0 0 100 100">
+    <rect x="12" y="14" width="76" height="72" rx="16" fill="#FAFCFF" stroke="#16213F" stroke-width="6"/>
+    <circle cx="37" cy="45" r="6" fill="#16213F"/><circle cx="63" cy="45" r="6" fill="#16213F"/>
+    <path d="M36 70 Q50 60 64 70" fill="none" stroke="#16213F" stroke-width="6" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<header class="topo">
+  <div class="miolo centro">
+    <a class="logo" href="#inicio" aria-label="Fábrica 3D, início">
+      <svg class="cubo" aria-hidden="true"><use href="#cubo"/></svg>
+      Fábrica 3D
+    </a>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- 1. HERÓI -->
+<section class="faixa heroi g-desce-ceu">
+  <div class="miolo centro">
+    <p class="pergunta">Quer postar vídeos 3D sem abrir programa de animação?</p>
+    <h1>Crie vídeos 3D usando só o Claude, <br class="so-largo"><span class="marca-texto">do roteiro à animação.</span></h1>
+    <p class="promessa"><span class="check"></span>Guias, skills e roteiros prontos por R$ 27,90</p>
+
+    <div class="palco">
+      <div class="celular">
+        <video src="videos/topo.mp4" poster="videos/davi.jpg" autoplay muted loop playsinline aria-label="Trechos de quatro animações 3D: Davi e Golias, abelhas, Jonas e o Sol"></video>
+      </div>
+      <ol class="avisos">
+        <li><span class="num">1</span><div><b>Tema</b><span>Você escolhe o assunto do vídeo</span></div><small>passo 1</small></li>
+        <li><span class="num">2</span><div><b>Roteiro</b><span>O Claude escreve com você</span></div><small>passo 2</small></li>
+        <li><span class="num">3</span><div><b>Animação 3D</b><span>Feita na conversa, com as skills</span></div><small>passo 3</small></li>
+        <li><span class="num">4</span><div><b>Post</b><span>Vídeo curto pronto pra publicar</span></div><small>passo 4</small></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 2. GALERIA -->
+<section class="faixa g-sobe-ceu">
+  <div class="miolo centro">
+    <h2>Veja o que dá pra criar</h2>
+    <p class="suave" style="margin-top:12px">Clipes curtos em 3D, nos dois temas dos roteiros prontos.</p>
+    <div class="abas" role="tablist" aria-label="Tipos de roteiro">
+      <button class="aba" role="tab" id="aba-biblia" aria-selected="true" aria-controls="trilho-biblia">Bíblia</button>
+      <button class="aba" role="tab" id="aba-curiosidades" aria-selected="false" aria-controls="trilho-curiosidades">Curiosidades</button>
+    </div>
+  </div>
+  <!-- Clipes de 4 segundos em loop (540x960). Para trocar, substitua os arquivos em videos/. -->
+  <div class="trilho" id="trilho-biblia" role="tabpanel" aria-labelledby="aba-biblia">
+    <figure class="quadro"><video src="videos/davi.mp4" poster="videos/davi.jpg" muted loop playsinline preload="none"></video><figcaption>Davi e Golias</figcaption></figure>
+    <figure class="quadro"><video src="videos/arca.mp4" poster="videos/arca.jpg" muted loop playsinline preload="none"></video><figcaption>A arca de Noé</figcaption></figure>
+    <figure class="quadro"><video src="videos/daniel.mp4" poster="videos/daniel.jpg" muted loop playsinline preload="none"></video><figcaption>Daniel na cova dos leões</figcaption></figure>
+    <figure class="quadro"><video src="videos/jonas.mp4" poster="videos/jonas.jpg" muted loop playsinline preload="none"></video><figcaption>Jonas e o grande peixe</figcaption></figure>
+  </div>
+  <div class="trilho" id="trilho-curiosidades" role="tabpanel" aria-labelledby="aba-curiosidades" hidden>
+    <figure class="quadro"><video src="videos/ceu.mp4" poster="videos/ceu.jpg" muted loop playsinline preload="none"></video><figcaption>Por que o céu é azul?</figcaption></figure>
+    <figure class="quadro"><video src="videos/abelhas.mp4" poster="videos/abelhas.jpg" muted loop playsinline preload="none"></video><figcaption>Como as abelhas fazem mel</figcaption></figure>
+    <figure class="quadro"><video src="videos/sol.mp4" poster="videos/sol.jpg" muted loop playsinline preload="none"></video><figcaption>O tamanho real do Sol</figcaption></figure>
+    <figure class="quadro"><video src="videos/mar.mp4" poster="videos/mar.jpg" muted loop playsinline preload="none"></video><figcaption>O ponto mais fundo do mar</figcaption></figure>
+  </div>
+</section>
+
+<!-- 3. DOR -->
+<section class="faixa g-desce-sol">
+  <div class="estreito">
+    <div class="centro">
+      <span class="balao">Seja sincero…</span>
+      <h2>Você já pensou em postar vídeos 3D, mas <span class="sublinha">trava</span> antes do primeiro.</h2>
+      <p class="suave" style="margin-top:16px">E toda vez que pensa em começar, a cabeça responde:</p>
+    </div>
+    <div class="cartao quadro-dor">
+      <ul class="pensamentos">
+        <li>Eu nunca animei nada.</li>
+        <li>Programa de 3D tem botão demais.</li>
+        <li>Não sei escrever roteiro que prenda.</li>
+        <li>Fico sem ideia do que postar.</li>
+      </ul>
+      <img src="img/boneco-ombros.png" width="520" height="473" alt="Boneco 3D dando de ombros">
+    </div>
+  </div>
+</section>
+
+<!-- 4. PROBLEMA E PROMESSA -->
+<section class="faixa g-noite">
+  <div class="estreito centro">
+    <h2>A ideia do vídeo está na sua cabeça, mas entre o tema e o post existem um roteiro e uma animação inteira pra fazer.</h2>
+    <p>É nesse meio do caminho que a maioria dos perfis para.</p>
+    <p class="maior">A Fábrica 3D te ensina a fazer esse caminho todo <span class="destaque">dentro de uma conversa com o Claude.</span></p>
+  </div>
+</section>
+
+<!-- 5. BENEFÍCIOS -->
+<section class="faixa g-sobe-ceu">
+  <div class="estreito centro">
+    <h2>Com a Fábrica 3D você vai:</h2>
+    <div class="beneficios">
+      <article class="cartao beneficio">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+        <h3>Criar a animação 3D conversando com o Claude</h3>
+      </article>
+      <article class="cartao beneficio">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7"/></svg></span>
+        <h3>Escrever o roteiro de cada vídeo curto com um guia do lado</h3>
+      </article>
+      <article class="cartao beneficio">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg></span>
+        <h3>Usar skills prontas pra não começar do zero</h3>
+      </article>
+      <article class="cartao beneficio">
+        <span class="icone"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M12 8v6M9 11h6"/></svg></span>
+        <h3>Sair com roteiros prontos de Bíblia e curiosidades</h3>
+      </article>
+    </div>
+    <a class="seta" href="#receber" aria-label="Ver o que você recebe"></a>
+  </div>
+</section>
+
+<!-- 6. O QUE VOCÊ RECEBE -->
+<section class="faixa" id="receber" style="background:var(--nuvem)">
+  <div class="miolo">
+    <div class="centro">
+      <span class="balao">E tem mais!</span>
+      <h2>Veja tudo o que você recebe com a Fábrica 3D</h2>
+    </div>
+    <div class="itens">
+      <article class="cartao item">
+        <div class="item-imagem"><div class="janela">
+          <div class="janela-topo"><i></i><i></i><i></i><span>Conversa com o Claude · ilustração</span></div>
+          <div class="conversa">
+            <p class="fala fala--voce">Quero um vídeo curto sobre a arca de Noé.</p>
+            <div class="fala fala--claude"><b class="quem">Claude</b>Aqui está o roteiro. Quer mudar algo antes de animar?<div class="anexo"><span class="folha"></span><div class="linhas"><b>Roteiro</b><i></i><i></i><i></i></div></div></div>
+          </div>
+        </div></div>
+        <div class="item-texto">
+          <span class="n">Parte 1</span>
+          <h3>Guias passo a passo</h3>
+          <p>O caminho completo explicado na ordem: como sair de um tema, chegar a um roteiro e transformar esse roteiro em animação 3D usando só o Claude.</p>
+        </div>
+      </article>
+      <article class="cartao item item--invertido">
+        <div class="item-imagem item-imagem--sol"><div class="janela">
+          <div class="janela-topo"><i></i><i></i><i></i><span>Conversa com o Claude · ilustração</span></div>
+          <div class="conversa">
+            <p class="fala fala--voce">Pode animar.</p>
+            <div class="fala fala--claude"><b class="quem">Claude</b>Animação 3D pronta, no formato vertical.<div class="anexo"><img src="videos/arca.jpg" alt="" loading="lazy"><span>arca-de-noe.mp4</span></div></div>
+          </div>
+        </div></div>
+        <div class="item-texto">
+          <span class="n">Parte 2</span>
+          <h3>Skills para o Claude</h3>
+          <p>Skills prontas pra você usar no Claude. Elas já carregam as instruções de roteiro e de animação, então você não precisa explicar tudo de novo a cada vídeo.</p>
+        </div>
+      </article>
+      <article class="cartao item">
+        <div class="item-imagem item-imagem--laranja"><div class="celular celular--pequeno"><video src="videos/daniel.mp4" poster="videos/daniel.jpg" muted loop playsinline preload="none" aria-label="Animação 3D de Daniel na cova dos leões"></video></div></div>
+        <div class="item-texto">
+          <span class="n">Parte 3</span>
+          <h3>Roteiros prontos</h3>
+          <p>Roteiros de Bíblia e de curiosidades já escritos. Use como estão pra produzir os primeiros vídeos ou como modelo pra escrever os seus.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 7. COMO FUNCIONA -->
+<section class="faixa g-desce-ceu">
+  <div class="miolo">
+    <h2 class="centro">Do tema ao post em 4 etapas</h2>
+    <ol class="etapas etapas--4">
+      <li class="cartao"><h3>Tema</h3><p>Você escolhe o assunto do vídeo ou pega um dos roteiros prontos.</p></li>
+      <li class="cartao"><h3>Roteiro</h3><p>Com o guia e a skill, o Claude monta o roteiro do vídeo curto junto com você.</p></li>
+      <li class="cartao"><h3>Animação 3D</h3><p>O roteiro vira animação 3D na mesma conversa, sem outro programa.</p></li>
+      <li class="cartao"><h3>Post</h3><p>Com o vídeo pronto, é só publicar no seu perfil.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 8. PARA QUEM É -->
+<section class="faixa g-ceu-sol">
+  <div class="miolo para-quem">
+    <div>
+      <h2>A Fábrica 3D é pra você que:</h2>
+      <ul class="lista-check">
+        <li><span class="check"></span>Nunca animou e quer começar pelo jeito mais simples</li>
+        <li><span class="check"></span>Já tentou um programa de 3D e desistiu no meio</li>
+        <li><span class="check"></span>Quer postar vídeos curtos de Bíblia ou de curiosidades</li>
+        <li><span class="check"></span>Já usa o Claude e quer tirar mais dele</li>
+        <li><span class="check"></span>Prefere um roteiro pronto a uma página em branco</li>
+        <li><span class="check"></span>Quer pagar uma vez só, sem mensalidade do material</li>
+      </ul>
+    </div>
+    <div class="turma" aria-hidden="true">
+      <img src="img/boneco-tchau.png" width="387" height="640" alt="" loading="lazy">
+      <img src="img/boneco-tcharam.png" width="520" height="537" alt="" loading="lazy">
+      <img src="img/boneco-uau.png" width="520" height="467" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 9. CHAMADA -->
+<section class="faixa g-sobe-sol">
+  <div class="estreito centro">
+    <h2>Se você quer o seu primeiro vídeo 3D no ar, o caminho começa aqui.</h2>
+  </div>
+</section>
+
+<!-- 10. RECAPITULAÇÃO -->
+<section class="faixa g-desce-ceu">
+  <div class="estreito centro">
+    <div class="cartao recap" style="text-align:left">
+      <h2>Recapitulando tudo o que você recebe</h2>
+      <ul>
+        <li><span class="check"></span>Guias passo a passo de roteiro<span class="tag">incluso</span></li>
+        <li><span class="check"></span>Guias passo a passo de animação 3D<span class="tag">incluso</span></li>
+        <li><span class="check"></span>Skills para o Claude<span class="tag">incluso</span></li>
+        <li><span class="check"></span>Roteiros prontos de Bíblia<span class="tag">incluso</span></li>
+        <li><span class="check"></span>Roteiros prontos de curiosidades<span class="tag">incluso</span></li>
+      </ul>
+    </div>
+    <span class="etiqueta total">Tudo num pagamento único</span>
+    <p class="fecho">Você leva o material inteiro por <span class="destaque">R$ 27,90.</span></p>
+  </div>
+</section>
+
+<!-- 11. OFERTA -->
+<section class="faixa g-sobe-ceu" id="oferta">
+  <div class="miolo oferta">
+    <div class="oferta-pacote">
+      <div class="janela">
+          <div class="janela-topo"><i></i><i></i><i></i><span>Conversa com o Claude · ilustração</span></div>
+          <div class="conversa">
+            <p class="fala fala--voce">Pode animar o roteiro de Davi e Golias.</p>
+            <div class="fala fala--claude"><b class="quem">Claude</b>Pronto. A sua animação 3D está aqui.<div class="anexo"><img src="videos/davi.jpg" alt="" loading="lazy"><span>davi-e-golias.mp4</span></div></div>
+          </div>
+        </div>
+      <img src="img/boneco-uau.png" width="520" height="467" alt="" loading="lazy">
+    </div>
+    <div class="cartao oferta-caixa">
+      <span class="rotulo">Fábrica 3D completa</span>
+      <p class="preco"><small>R$</small>27,90</p>
+      <p class="suave" style="font-weight:600">pagamento único</p>
+      <a class="botao botao--grande js-checkout" href="https://pay.herospark.com/fabrica-3d-553545">Quero a Fábrica 3D</a>
+      <ul class="selos">
+        <li><span class="check"></span>7 dias para desistir</li>
+        <li><span class="check"></span>Sem mensalidade do material</li>
+        <li><span class="check"></span>Guias, skills e roteiros inclusos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 12. DEPOIS DA COMPRA -->
+<section class="faixa g-desce-sol">
+  <div class="miolo">
+    <h2 class="centro">Comprou, é só seguir três passos</h2>
+    <ol class="etapas etapas--3">
+      <li class="cartao"><h3>Finalize a compra</h3><p>O pagamento é único, de R$ 27,90.</p></li>
+      <li class="cartao"><h3>Acesse o material</h3><p>Abra os guias, as skills e os roteiros prontos.</p></li>
+      <li class="cartao"><h3>Comece no Claude</h3><p>Siga o primeiro guia e monte o seu primeiro vídeo.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 13. REQUISITOS -->
+<section class="faixa faixa--curta requisitos">
+  <div class="estreito">
+    <h2>Você vai precisar de</h2>
+    <ul class="lista-check">
+      <li><span class="check"></span>Uma conta no Claude, que é a única ferramenta usada no método</li>
+      <li><span class="check"></span>Um tema pro primeiro vídeo, ou um dos roteiros prontos</li>
+      <li><span class="check"></span>Um perfil pra postar os seus vídeos curtos</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 14. DUAS ESCOLHAS -->
+<section class="faixa faixa--curta g-noite">
+  <div class="miolo centro"><h2 style="font-size:clamp(26px,4.2vw,38px)">Agora você tem <span class="destaque">duas escolhas:</span></h2></div>
+</section>
+<section class="faixa g-desce-ceu">
+  <div class="miolo">
+    <div class="escolhas">
+      <article class="cartao escolha">
+        <div class="escolha-topo">
+          <img src="img/boneco-ombros.png" width="520" height="473" alt="" loading="lazy">
+          <div><span class="op">Opção 1</span><h3>Continuar só na vontade</h3></div>
+        </div>
+        <p>Deixar o vídeo 3D pra semana que vem, pro mês que vem, pra quando sobrar tempo de aprender a animar.</p>
+      </article>
+      <article class="cartao escolha escolha--boa">
+        <div class="escolha-topo">
+          <img src="img/boneco-tcharam.png" width="520" height="537" alt="" loading="lazy">
+          <div><span class="op">Opção 2</span><h3>Entrar na Fábrica 3D</h3></div>
+        </div>
+        <p>Abrir o primeiro guia, escolher um tema e fazer o roteiro e a animação com o Claude do seu lado.</p>
+      </article>
+    </div>
+    <div class="centro" style="margin-top:48px">
+      <p class="fecho" style="margin:0 0 28px">A opção 2 custa <span class="destaque">R$ 27,90</span> e você tem 7 dias pra desistir.</p>
+      <a class="botao botao--grande js-checkout" href="https://pay.herospark.com/fabrica-3d-553545">Quero a Fábrica 3D</a>
+    </div>
+  </div>
+</section>
+
+<!-- 15. NÚMEROS -->
+<section class="faixa g-ceu-sol">
+  <div class="miolo autoridade">
+    <div>
+      <h2>Uma ferramenta só, do começo ao fim.</h2>
+      <p>Nada de juntar cinco aplicativos. O método inteiro acontece no Claude: você conversa, ele ajuda no roteiro e na animação, e os guias mostram o que pedir em cada etapa.</p>
+    </div>
+    <dl class="numeros">
+      <div><dt>1</dt><dd>ferramenta: o Claude</dd></div>
+      <div><dt>4</dt><dd>etapas do tema ao post</dd></div>
+      <div><dt>3</dt><dd>tipos de material: guias, skills e roteiros</dd></div>
+      <div><dt>2</dt><dd>linhas de roteiros prontos</dd></div>
+      <div><dt>7</dt><dd>dias para desistir</dd></div>
+      <div><dt>1</dt><dd>pagamento de R$ 27,90</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- 16. OFERTA (repetição) -->
+<section class="faixa g-sobe-sol">
+  <div class="miolo oferta">
+    <div class="oferta-pacote">
+      <div class="janela">
+          <div class="janela-topo"><i></i><i></i><i></i><span>Conversa com o Claude · ilustração</span></div>
+          <div class="conversa">
+            <p class="fala fala--voce">Agora um de curiosidades: como as abelhas fazem mel.</p>
+            <div class="fala fala--claude"><b class="quem">Claude</b>Roteiro e animação prontos.<div class="anexo"><img src="videos/abelhas.jpg" alt="" loading="lazy"><span>abelhas-e-mel.mp4</span></div></div>
+          </div>
+        </div>
+      <img src="img/boneco-tchau.png" width="387" height="640" alt="" loading="lazy" style="width:112px">
+    </div>
+    <div class="cartao oferta-caixa">
+      <span class="rotulo">Fábrica 3D completa</span>
+      <p class="preco"><small>R$</small>27,90</p>
+      <p class="suave" style="font-weight:600">pagamento único</p>
+      <a class="botao botao--grande js-checkout" href="https://pay.herospark.com/fabrica-3d-553545">Quero a Fábrica 3D</a>
+      <ul class="selos">
+        <li><span class="check"></span>7 dias para desistir</li>
+        <li><span class="check"></span>Sem mensalidade do material</li>
+        <li><span class="check"></span>Guias, skills e roteiros inclusos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 17. DÚVIDAS -->
+<section class="faixa g-desce-ceu">
+  <div class="estreito centro">
+    <h2>Perguntas frequentes</h2>
+    <div class="duvidas">
+      <details><summary>O que é a Fábrica 3D?</summary><p>É um material que ensina a criar o roteiro e a animação 3D dos seus vídeos curtos usando só o Claude. Vem com guias, skills para o Claude e roteiros prontos.</p></details>
+      <details><summary>Preciso saber animar ou programar?</summary><p>Não. Os guias partem do zero e as skills já levam as instruções prontas pro Claude.</p></details>
+      <details><summary>O que é o Claude? Ele está incluso?</summary><p>O Claude é um assistente de inteligência artificial da Anthropic. A Fábrica 3D ensina a usá-lo e entrega as skills, mas a sua conta no Claude é à parte.</p></details>
+      <details><summary>Os roteiros prontos são sobre o quê?</summary><p>São roteiros de Bíblia e de curiosidades, pensados pra vídeos curtos.</p></details>
+      <details><summary>O pagamento é único mesmo?</summary><p>Sim. Você paga R$ 27,90 uma vez pelo material.</p></details>
+      <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias pra desistir da compra.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="miolo">
+    <a class="logo" href="#inicio"><svg class="cubo" aria-hidden="true"><use href="#cubo"/></svg>Fábrica 3D</a>
+    <p>Claude é uma marca da Anthropic. A Fábrica 3D é um material independente e não tem vínculo com a Anthropic.</p>
+    <p>Este site não é afiliado à Meta, ao Instagram, ao Facebook, ao TikTok nem ao YouTube. A compra não garante resultados de alcance ou de faturamento.</p>
+    <p>© 2026 Fábrica 3D. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<div class="barra-compra">
+  <span class="valor">R$ 27,90<small>pagamento único</small></span>
+  <a class="botao js-checkout" href="https://pay.herospark.com/fabrica-3d-553545">Quero a Fábrica 3D</a>
+</div>
+
+<script>
+// COLOQUE AQUI O LINK DO SEU CHECKOUT. Enquanto estiver vazio, os botões levam até a oferta na página.
+var CHECKOUT_URL = "";
+
+if (CHECKOUT_URL) {
+  document.querySelectorAll(".js-checkout").forEach(function (a) { a.href = CHECKOUT_URL; });
+}
+
+// vídeos: tocam quando aparecem na tela e pausam quando saem
+var videos = document.querySelectorAll("video");
+if ("IntersectionObserver" in window) {
+  var olho = new IntersectionObserver(function (itens) {
+    itens.forEach(function (i) {
+      if (i.isIntersecting) { var p = i.target.play(); if (p && p.catch) p.catch(function () {}); }
+      else i.target.pause();
+    });
+  }, { threshold: 0.25 });
+  videos.forEach(function (v) { olho.observe(v); });
+} else {
+  videos.forEach(function (v) { v.autoplay = true; });
+}
+
+// abas da galeria
+document.querySelectorAll(".aba").forEach(function (aba) {
+  aba.addEventListener("click", function () {
+    document.querySelectorAll(".aba").forEach(function (o) {
+      var ativa = o === aba;
+      o.setAttribute("aria-selected", ativa ? "true" : "false");
+      document.getElementById(o.getAttribute("aria-controls")).hidden = !ativa;
+    });
+  });
+});
+</script>
+</body>
+</html>
