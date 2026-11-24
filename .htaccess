@@ -1,0 +1,10 @@
+# Biblia em Cena - regras do servidor (Hostinger)
+
+RewriteEngine On
+
+# A implantacao via Git deixa a pasta .git no servidor: bloqueia o acesso a ela.
+RewriteRule (^|/)\.git(/|$) - [F,L]
+
+# Temporario: ate a vitrine ficar pronta, a pagina inicial leva para a Fabrica 3D.
+# 302 = redirecionamento temporario. As UTMs da URL sao repassadas automaticamente.
+RewriteRule ^$ /fabrica3d/ [R=302,L]
